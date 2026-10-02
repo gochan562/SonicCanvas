@@ -52,7 +52,7 @@ export function Header() {
       </div>
       <div className="flex items-center gap-2">
         <a
-          href="https://github.com"
+          href="https://github.com/gochan562/SonicCanvas"
           target="_blank"
           rel="noreferrer"
           className="hidden sm:inline-flex h-9 items-center gap-2 rounded-md border border-white/10 px-3 text-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white"
