@@ -307,7 +307,7 @@ const VERT = /* glsl */ `
     // 1/-mvPos.z = perspective foreshortening (distant = smaller).
     // ============================================================
     // point size: shrinks with distance, grows with treble
-    float sz = a_size * (0.6 + u_particles * 1.8 + u_treble * 0.8);
+    float sz = a_size * (4.5 + u_particles * 3.3 + u_treble * 2.5);
     gl_PointSize = sz * (1.0 / -mvPos.z);
 
     // ============================================================
@@ -400,8 +400,9 @@ const FRAG = /* glsl */ `
     //   brighten" trick (see OrbitScene FS for explanation).
     // ============================================================
     // distance-based color: nearer particles use primary, farther use secondary
+    // actually not. I DISABLED the primary/secondary mix because it was too distracting. Instead, just use secondary for all particles.
     float distT = clamp(v_distance / 3.0, 0.0, 1.0);
-    vec3 col = mix(u_primary, u_secondary, distT + u_colorShift * 0.4);
+    vec3 col = u_secondary;
 
     // brightness + glow
     col *= v_brightness * (0.4 + u_glow * 0.9);
@@ -560,9 +561,20 @@ const BG_FRAG = /* glsl */ `
     // ============================================================
     // COLOR MIX (background → primary tint, with secondary beat flash)
     // ============================================================
-    vec3 col = mix(u_background, u_primary * 0.15, grad * (0.3 + n * 0.3));
+    // Particle scene uses Secondary as its only accent color.
+    // Primary is intentionally ignored.
+
+    vec3 col = mix(
+      u_background,
+      u_secondary * 0.15,
+      grad * (0.3 + n * 0.3)
+    );
+
     col += u_secondary * beatGlow * 0.3;
-    col += u_primary * grad * (0.1 + u_energy * 0.3 + u_glow * 0.2);
+
+    col += u_secondary * grad * (
+      0.1 + u_energy * 0.3 + u_glow * 0.2
+    );
 
     // ============================================================
     // CROSSFADE ALPHA (non-premultiplied for NormalBlending)
@@ -738,33 +750,39 @@ export class ParticleFieldScene implements Scene {
    * full set including u_distortion (flow field amplitude).
    */
   update(state: VisualState, settings: UserSettings, time: number): void {
-    if (this.particleMaterial) {
-      const u = this.particleMaterial.uniforms
-      u.u_time.value = time
-      u.u_bass.value = state.bass
-      u.u_mid.value = state.mid
-      u.u_treble.value = state.treble
-      u.u_energy.value = state.energy
-      u.u_beat.value = state.pulse
-      u.u_motion.value = settings.motion
-      u.u_particles.value = state.particles
-      u.u_distortion.value = state.distortion
-      u.u_primary.value.copy(settings.primaryColor)
-      u.u_secondary.value.copy(settings.secondaryColor)
-      u.u_glow.value = state.glow
-      u.u_colorShift.value = state.colorShift
-    }
-    if (this.bgMaterial) {
-      const u = this.bgMaterial.uniforms
-      u.u_time.value = time
-      u.u_energy.value = state.energy
-      u.u_beat.value = state.pulse
-      u.u_glow.value = state.glow
-      u.u_primary.value.copy(settings.primaryColor)
-      u.u_secondary.value.copy(settings.secondaryColor)
-      u.u_background.value.copy(settings.backgroundColor)
-    }
+
+  if (this.particleMaterial) {
+    const u = this.particleMaterial.uniforms
+    u.u_time.value = time
+    u.u_bass.value = state.bass
+    u.u_mid.value = state.mid
+    u.u_treble.value = state.treble
+    u.u_energy.value = state.energy
+    u.u_beat.value = state.pulse
+    u.u_motion.value = settings.motion
+    u.u_particles.value = state.particles
+    u.u_distortion.value = state.distortion
+    // Primary color is disabled for ParticleField particles.
+    // u.u_primary.value.copy(settings.primaryColor)
+    u.u_secondary.value.copy(settings.secondaryColor)
+    u.u_glow.value = state.glow
+    u.u_colorShift.value = state.colorShift
   }
+  
+  if (this.bgMaterial) {
+    const u = this.bgMaterial.uniforms
+    u.u_time.value = time
+    u.u_energy.value = state.energy
+    u.u_beat.value = state.pulse
+    u.u_glow.value = state.glow
+    // Background still uses the global primary color.
+    u.u_primary.value.copy(settings.primaryColor)
+    u.u_secondary.value.copy(settings.secondaryColor)
+    u.u_background.value.copy(settings.backgroundColor)
+  }
+
+}
+
 
   /**
    * Set crossfade opacity on BOTH materials so BG + particles fade

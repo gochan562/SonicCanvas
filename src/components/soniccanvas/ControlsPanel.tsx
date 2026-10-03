@@ -126,24 +126,43 @@ const ColorRow = ({
   label,
   value,
   onChange,
+  disabled = false,
 }: {
   label: string
   value: string
   onChange: (hex: string) => void
+  disabled?: boolean
 }) => (
-  <div className="flex items-center justify-between gap-2">
+  <div
+    className={`flex items-center justify-between gap-2 transition-opacity ${
+      disabled ? 'opacity-40' : 'opacity-100'
+    }`}
+  >
     <Label className="text-xs text-white/70">{label}</Label>
-    <div className="flex items-center gap-2 rounded-md border border-white/10 bg-black/40 px-1 py-0.5">
-      <input
-        type="color"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="h-6 w-6 cursor-pointer rounded bg-transparent"
-        aria-label={label}
-      />
-      <span className="font-mono text-[10px] uppercase text-white/60">
-        {value}
-      </span>
+
+    <div className="flex items-center gap-2">
+      {disabled && (
+        <span className="text-[10px] text-white/40">
+          Disabled for Particles
+        </span>
+      )}
+
+      <div className="flex items-center gap-2 rounded-md border border-white/10 bg-black/40 px-1 py-0.5">
+        <input
+          type="color"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          disabled={disabled}
+          className={`h-6 w-6 rounded bg-transparent ${
+            disabled ? 'cursor-not-allowed' : 'cursor-pointer'
+          }`}
+          aria-label={label}
+        />
+
+        <span className="font-mono text-[10px] uppercase text-white/60">
+          {value}
+        </span>
+      </div>
     </div>
   </div>
 )
@@ -216,6 +235,7 @@ export function ControlsPanel() {
   const settings = useSonicStore((s) => s.settings)
   const activePresetId = useSonicStore((s) => s.activePresetId)
   const activeScene = useSonicStore((s) => s.activeScene)
+  const primaryColorDisabled = activeScene === 'particles'
   const autoScene = useSonicStore((s) => s.autoScene)
   const transitionStyle = useSonicStore((s) => s.transitionStyle)
   const debug = useSonicStore((s) => s.debug)
@@ -570,6 +590,7 @@ export function ControlsPanel() {
             label="Primary"
             value={colorToHex(settings.primaryColor)}
             onChange={(h) => setColorSetting('primaryColor', h)}
+            disabled={primaryColorDisabled}
           />
           <ColorRow
             label="Secondary"
