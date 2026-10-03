@@ -7,9 +7,9 @@ Upload a music file, choose a visual scene, tune how different parts of the audi
 The goal is to make audiovisual experimentation feel less like configuring a technical system and more like playing an instrument.
 
 
-## ✨ Features
+## Features
 
-### 🎵 Audio-reactive visuals
+### Audio-reactive visuals
 
 SonicCanvas analyzes the uploaded audio in real time and extracts characteristics such as:
 
@@ -20,13 +20,13 @@ SonicCanvas analyzes the uploaded audio in real time and extracts characteristic
 
 These values can drive different properties of the visual scene.
 
-### 🎨 Procedural visual scenes
+### Procedural visual scenes
 
 Visual scenes are generated procedurally rather than relying on a pre-rendered video.
 
 Scenes can respond continuously to the incoming audio, producing a visual performance that changes with the music.
 
-### 🎛️ Visual controls
+### Visual controls
 
 Tune the behavior of the visual engine with controls for:
 
@@ -36,7 +36,7 @@ Tune the behavior of the visual engine with controls for:
 * Particles
 * Distortion
 
-### 🧩 Audio mapping
+### Audio mapping
 
 Different audio characteristics can be mapped to visual parameters.
 
@@ -44,20 +44,20 @@ For example, bass can influence one property while treble, beat intensity, or ov
 
 SonicCanvas also includes a mapping editor for creating more customized relationships between audio input and visual output.
 
-### 🌈 Color system
+### Color system
 
 Customize the visual palette with:
 
-* Primary color
+* Primary color (disabled in particle mode)
 * Secondary color
 * Background color
 * Color shift
 
-### 🎬 Scene and preset workflow
+### Scene and preset workflow
 
 SonicCanvas includes scene selection, presets, automatic scene switching, and playback controls so a visual performance can be shaped without editing the underlying rendering code.
 
-### 🖥️ Browser-based
+### Browser-based
 
 The application is designed to run directly in the browser.
 
@@ -65,9 +65,9 @@ Audio analysis and visual rendering happen locally in the browser, allowing the 
 
 ---
 
-## 🧠 How it works
+## How it works
 
-SonicCanvas is built around the relationship between **audio analysis and procedural graphics**.
+SonicCanvas is built around the relationship between audio analysis and procedural graphics.
 
 An uploaded audio track is processed through the Web Audio API. SonicCanvas extracts useful audio signals and normalizes them into values that can drive the visual engine.
 
@@ -75,11 +75,11 @@ Those values are then passed through the mapping system.
 
 Instead of saying:
 
-> "At 1:32 in the song, play this animation."
+"At 1:32 in the song, play this animation."
 
 the system can express relationships such as:
 
-> "As bass intensity increases, increase the visual distortion."
+"As bass intensity increases, increase the visual distortion."
 
 This makes the resulting visualization responsive to the actual structure of the music.
 
@@ -87,7 +87,7 @@ The visual engine uses **Three.js / WebGL** to render the procedural scenes in r
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Technology    | Purpose                           |
 | ------------- | --------------------------------- |
@@ -104,7 +104,7 @@ The visual engine uses **Three.js / WebGL** to render the procedural scenes in r
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Requirements
 
@@ -152,7 +152,7 @@ bun run build
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 The main application code lives under `src/`.
 
@@ -200,7 +200,7 @@ This separation makes it possible to work on the visual engine, audio analysis, 
 
 ---
 
-## 🎨 Customization
+## Customization
 
 SonicCanvas is intended to be experimented with.
 
@@ -221,19 +221,7 @@ See the documentation in [`docs/`](./docs/) for more detailed information about 
 
 ---
 
-## 📸 Screenshots
-
-Add screenshots or recordings of the current SonicCanvas interface here.
-
-<!--
-Example:
-
-![SonicCanvas interface](docs/images/screenshot.png)
--->
-
----
-
-## 🗺️ Roadmap
+## Roadmap
 
 SonicCanvas is still an evolving project.
 
@@ -253,7 +241,7 @@ The roadmap is intentionally flexible as the project develops.
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 Additional project documentation is available in [`docs/`](./docs/).
 
@@ -262,7 +250,7 @@ Additional project documentation is available in [`docs/`](./docs/).
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 SonicCanvas is currently a personal development project, but the repository is public so the code, ideas, and development process can be explored.
 
@@ -270,16 +258,12 @@ If you find a bug or have an idea, feel free to open an issue.
 
 ---
 
-## 📄 License
+## License
 
 License information will be added as the project is prepared for broader public use.
 
 ---
 
-## About
+## Other
 
-SonicCanvas is an audiovisual experiment exploring the intersection of:
-
-**music × computation × procedural graphics × interaction**
-
-The project focuses on turning relationships in sound into something that can be seen, manipulated, and experimented with in real time.
+Please note that **generative AI tools** were used to assist in drafting and organizing some part of the documentations. While the core data has been checked, please verify critical metrics independently before finalizing.
