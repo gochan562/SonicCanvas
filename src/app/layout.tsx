@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   description: "Upload a music file and watch a procedural visual performance react in real time. All processing happens locally in your browser.",
   keywords: ["SonicCanvas", "music visualizer", "procedural", "WebGL", "Web Audio", "Three.js"],
   authors: [{ name: "SonicCanvas" }],
+  verification: {
+    google: "La7ThTy5RAYuNonNZCKSaT0IdAf7YozGQ1Ld1SdlMaU",
+  },
   icons: {
     icon: "/logo.svg",
   },
