@@ -266,4 +266,5 @@ License information will be added as the project is prepared for broader public 
 
 ## Other
 
-Please note that **generative AI tools** were used to assist in drafting and organizing some part of the documentations. While the core data has been checked, please verify critical metrics independently before finalizing.
+* Please note that **generative AI tools** were used to assist in drafting and organizing some part of the documentations. While the core data has been checked, please verify critical metrics independently before finalizing.
+* All of the comments are written by me, and none of it is a starter template/boilerplate copy-pasted from others.
