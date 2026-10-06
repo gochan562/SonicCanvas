@@ -154,7 +154,7 @@ The goal is to make the relationship between sound and motion visible through si
 
 ## Status
 
-SonicCanvas is an active development project. The core visualization and export pipeline is functional, while additional scenes, controls, mappings, and rendering features continue to evolve. For how to start, please visit /docs.
+SonicCanvas is an active development project. The core visualization and export pipeline is functional, while additional scenes, controls, mappings, and rendering features continue to evolve. For further guides, please visit /docs.
 
 ---
 
