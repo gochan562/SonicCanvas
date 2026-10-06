@@ -1,132 +1,115 @@
 # SonicCanvas
 
-**SonicCanvas is a browser-based procedural music visualizer that turns audio into a real-time visual performance.**
+SonicCanvas is a browser-based music visualization tool that turns audio into real-time generative visuals.
 
-Upload a music file, choose a visual scene, tune how different parts of the audio influence the visuals, and watch the scene respond in real time.
+Load an audio file, choose a visual scene, adjust the parameters, and watch the visualization react to the music. The same rendering system is used for both the live preview and video export.
 
-The goal is to make audiovisual experimentation feel less like configuring a technical system and more like playing an instrument.
-
+---
 
 ## Features
 
-### Audio-reactive visuals
+### Audio-reactive visualization
 
-SonicCanvas analyzes the uploaded audio in real time and extracts characteristics such as:
+SonicCanvas analyzes audio in real time and exposes musical information such as energy and beat activity to the visual engine.
 
-* Bass
-* Treble
-* Beat intensity
-* Overall energy
+Visual parameters can respond dynamically to the audio instead of relying on pre-rendered animations.
 
-These values can drive different properties of the visual scene.
+---
 
-### Procedural visual scenes
+### Multiple visual scenes
 
-Visual scenes are generated procedurally rather than relying on a pre-rendered video.
+The visualization engine is built around independent scenes with different rendering behavior.
 
-Scenes can respond continuously to the incoming audio, producing a visual performance that changes with the music.
+Current scenes include:
+
+* Particle Field
+* Orbit
+* Additional scene systems under active development
+
+Each scene has its own rendering logic and controls.
+
+---
 
 ### Visual controls
 
-Tune the behavior of the visual engine with controls for:
+The control panel provides adjustable parameters for the active scene, including:
 
 * Intensity
 * Motion
 * Glow
 * Particles
 * Distortion
+* Primary Color
+* Secondary Color
+* Background Color
+
+Some controls are scene-specific. For example, Primary Color is intentionally disabled for the Particle scene, where Secondary Color is used as the main visual accent.
+
+---
 
 ### Audio mapping
 
-Different audio characteristics can be mapped to visual parameters.
-
-For example, bass can influence one property while treble, beat intensity, or overall energy influences another.
-
-SonicCanvas also includes a mapping editor for creating more customized relationships between audio input and visual output.
-
-### Color system
-
-Customize the visual palette with:
-
-* Primary color (disabled in particle mode)
-* Secondary color
-* Background color
-* Color shift
-
-### Scene and preset workflow
-
-SonicCanvas includes scene selection, presets, automatic scene switching, and playback controls so a visual performance can be shaped without editing the underlying rendering code.
-
-### Browser-based
-
-The application is designed to run directly in the browser.
-
-Audio analysis and visual rendering happen locally in the browser, allowing the core audiovisual experience to work without requiring a remote rendering service.
+SonicCanvas is designed around mapping audio properties to visual parameters. This allows movement, brightness, particle behavior, and other visual properties to change with the music.
 
 ---
 
-## How it works
+### Video export
 
-SonicCanvas is built around the relationship between audio analysis and procedural graphics.
+The canvas can be recorded directly from the WebGL renderer and exported as a video.
 
-An uploaded audio track is processed through the Web Audio API. SonicCanvas extracts useful audio signals and normalizes them into values that can drive the visual engine.
-
-Those values are then passed through the mapping system.
-
-Instead of saying:
-
-"At 1:32 in the song, play this animation."
-
-the system can express relationships such as:
-
-"As bass intensity increases, increase the visual distortion."
-
-This makes the resulting visualization responsive to the actual structure of the music.
-
-The visual engine uses **Three.js / WebGL** to render the procedural scenes in real time.
+The exported visualization uses the same rendering pipeline as the live preview, so scene behavior and visual settings remain consistent between preview and export.
 
 ---
 
-## Tech Stack
+## Technology
 
-| Technology    | Purpose                           |
-| ------------- | --------------------------------- |
-| Next.js       | Application framework             |
-| React         | UI                                |
-| TypeScript    | Application logic and type safety |
-| Three.js      | Real-time 3D/WebGL rendering      |
-| Web Audio API | Audio analysis and playback       |
-| Zustand       | Client-side state management      |
-| Tailwind CSS  | Styling                           |
-| shadcn/ui     | UI components                     |
-| Lucide        | Interface icons                   |
-| Sonner        | Notifications                     |
+SonicCanvas is built with:
+
+* Next.js
+* React
+* TypeScript
+* Three.js
+* Tailwind CSS
+* Zustand
+* Radix UI components
+* Bun
+
+The visualization layer uses Three.js and custom GLSL shaders for GPU-based rendering.
+
+## Project Structure
+
+```text
+src/
+├── app/
+├── components/
+│   └── soniccanvas/
+├── lib/
+│   └── soniccanvas/
+│       ├── audio/
+│       ├── export/
+│       └── visuals/
+│           └── scenes/
+└── ...
+```
+
+The main systems are separated into audio analysis, visualization, scene rendering, application state, controls, and video export.
 
 ---
 
-## Getting Started
+## Development
 
 ### Requirements
 
-* Node.js or Bun
-* A modern browser with Web Audio and WebGL support
+* Bun
+* A modern browser with WebGL support
 
 ### Install
-
-Clone the repository:
-
-```bash
-git clone https://github.com/gochan562/SonicCanvas.git
-cd SonicCanvas
-```
-
-Install dependencies:
 
 ```bash
 bun install
 ```
 
-### Start the development server
+### Run locally
 
 ```bash
 bun run dev
@@ -138,133 +121,50 @@ Then open:
 http://localhost:3000
 ```
 
-### Type-check
+### Type checking
 
 ```bash
 bunx tsc --noEmit
 ```
 
-### Production build
+---
 
-```bash
-bun run build
-```
+
+## Rendering Architecture
+
+SonicCanvas separates the visual system into a reusable rendering engine and individual scenes.
+
+The visual engine manages the renderer, canvas, animation loop, scene lifecycle, resizing, and shared visual state.
+
+Each scene contains its own Three.js objects, materials, shaders, uniforms, and update logic.
+
+Audio analysis is fed into the active scene through shared state, allowing shader uniforms and scene parameters to react to the music in real time.
+
+Video export captures the rendered canvas directly, which means the live renderer and exported video share the same visual implementation.
 
 ---
 
-## Project Structure
+## Design Direction
 
-The main application code lives under `src/`.
+SonicCanvas focuses on procedural graphics rather than pre-made visual assets.
 
-```text
-src/
-├── app/
-│   ├── api/
-│   ├── globals.css
-│   ├── layout.tsx
-│   └── page.tsx
-│
-├── components/
-│   ├── soniccanvas/
-│   └── ui/
-│
-├── hooks/
-│
-└── lib/
-    └── soniccanvas/
-        ├── audio/
-        ├── visuals/
-        ├── config/
-        ├── export/
-        └── ui/
-```
-
-### `components/soniccanvas`
-
-Contains the main SonicCanvas interface and application-level components.
-
-Examples include:
-
-* `SonicCanvas.tsx`
-* `ControlsPanel.tsx`
-* `VisualCanvas.tsx`
-* `PlayerBar.tsx`
-* `MappingEditor.tsx`
-* `UploadScreen.tsx`
-
-### `lib/soniccanvas`
-
-Contains the underlying audiovisual systems rather than the interface itself.
-
-This separation makes it possible to work on the visual engine, audio analysis, configuration, and UI independently.
+The goal is to make the relationship between sound and motion visible through simple systems: particles, geometry, light, color, noise, and shader-based effects responding to audio.
 
 ---
 
-## Customization
+## Status
 
-SonicCanvas is intended to be experimented with.
-
-Important customization areas include:
-
-* visual scenes
-* scene parameters
-* audio analysis
-* audio-to-visual mappings
-* colors
-* particle behavior
-* motion
-* distortion
-* rendering behavior
-* interface components
-
-See the documentation in [`docs/`](./docs/) for more detailed information about modifying the project.
-
----
-
-## Roadmap
-
-SonicCanvas is still an evolving project.
-
-Possible future work includes:
-
-* More procedural visual scenes
-* More sophisticated audio mappings
-* Expanded mapping curves and controls
-* More export options
-* Improved performance for complex scenes
-* Better customization workflows
-* More visual effects
-* Improved documentation
-* More accessible interaction and controls
-
-The roadmap is intentionally flexible as the project develops.
-
----
-
-## Documentation
-
-Additional project documentation is available in [`docs/`](./docs/).
-
-* [`CUSTOMIZATION_GUIDE.md`](./docs/CUSTOMIZATION_GUIDE.md) — customization and modification guide
-* [`VSCODE_SETUP.md`](./docs/VSCODE_SETUP.md) — local development and editor setup
-
----
-
-## Contributing
-
-SonicCanvas is currently a personal development project, but the repository is public so the code, ideas, and development process can be explored.
-
-If you find a bug or have an idea, feel free to open an issue.
+SonicCanvas is an active development project. The core visualization and export pipeline is functional, while additional scenes, controls, mappings, and rendering features continue to evolve. For how to start, please visit /docs.
 
 ---
 
 ## License
 
-License information will be added as the project is prepared for broader public use.
+This project does not currently specify a public software license.
 
 ---
 
 ## Other
 
 * Please note that **generative AI tools** were used to assist in drafting and organizing some part of the documentations. While the core data has been checked, please verify critical metrics independently before finalizing.
-* All of the comments are written by me, and none of it is a starter template/boilerplate copy-pasted from others.
+* All of the comments in-code are written by me, and none of it is a starter template/boilerplate copy-pasted from others.
