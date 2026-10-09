@@ -366,7 +366,7 @@ export function ControlsPanel() {
               >
                 <span
                   className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-transform ${
-                    autoScene ? 'translate-x-0.5' : 'translate-x-4'
+                    autoScene ? 'translate-x-0.5' : '-translate-x-4'
                   }`}
                 />
               </button>
