@@ -1,4 +1,4 @@
-# SonicCanvas — VSCode Project Setup Guide
+# SonicCanvas - VSCode Project Setup Guide
 
 > Complete manual for recreating the SonicCanvas project from scratch
 > in Visual Studio Code.

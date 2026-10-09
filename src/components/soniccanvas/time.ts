@@ -1,6 +1,4 @@
-/**
- * Format seconds as mm:ss (or h:mm:ss for long tracks).
- */
+
 export function formatTime(seconds: number): string {
   if (!isFinite(seconds) || seconds < 0) seconds = 0
   const s = Math.floor(seconds % 60)

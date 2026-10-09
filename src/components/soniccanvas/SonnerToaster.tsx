@@ -10,8 +10,7 @@ import { Toaster } from 'sonner'
  * Imported into the root layout (a server component) so it mounts once
  * at the app root.
  *
- * Styled to match the SonicCanvas dark theme: dark translucent
- * background, subtle white border, positioned bottom-right.
+ * Style: dark translucent background, a bit of white border, positioned bottom-right.
  */
 export function SonnerToaster() {
   return (

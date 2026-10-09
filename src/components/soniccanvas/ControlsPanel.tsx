@@ -168,7 +168,7 @@ const ColorRow = ({
 )
 
 /**
- * SceneThumbIcon — a tiny inline SVG/CSS icon hinting at each scene's
+ * SceneThumbIcon - a tiny inline SVG/CSS icon hinting at each scene's
  * visual style. Purely decorative; the real scene renders in the main
  * canvas. Used in the scene thumbnail strip.
  */
@@ -215,7 +215,7 @@ function SceneThumbIcon({ id }: { id: 'liquid' | 'orbit' | 'tunnel' | 'grid' | '
       </svg>
     )
   }
-  // particles — scattered dots
+  // particles - scattered dots
   return (
     <svg viewBox="0 0 16 16" className={common} fill="none" aria-hidden="true">
       <circle cx="3" cy="4" r="0.9" fill="#ff2d95"/>
@@ -366,7 +366,7 @@ export function ControlsPanel() {
               >
                 <span
                   className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-transform ${
-                    autoScene ? 'translate-x-4' : 'translate-x-0.5'
+                    autoScene ? 'translate-x-0.5' : 'translate-x-4'
                   }`}
                 />
               </button>

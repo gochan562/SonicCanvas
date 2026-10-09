@@ -49,7 +49,7 @@ export function FullscreenToggle() {
       }
     } catch {
       // some browsers reject fullscreen without a user gesture or
-      // if the element isn't focusable — ignore silently
+      // if the element isn't focusable, ignore silently
     }
   }
 

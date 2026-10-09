@@ -10,9 +10,9 @@ import { formatTime } from './time'
 /**
  * Generate a short demo tone (WAV) in the browser so users can try
  * SonicCanvas without having their own audio file. Creates a layered
- * tone with bass + mid + treble + kick drum — enough variety to
+ * tone with bass + mid + treble + kick drum. Probably enough variety to
  * showcase all audio→visual mappings.
- *
+ * But the music is NOT good. feel free to add your own music or generate a better one!
  * Returns a File object ready to pass to loadFile().
  */
 function generateDemoTone(): File {
@@ -142,7 +142,7 @@ export function UploadScreen() {
         <p className="mt-1 text-sm text-white/50">
           {isAnalyzing
             ? 'Decoding audio and preparing the visual pipeline.'
-            : 'MP3 · WAV · OGG — processed entirely on your device.'}
+            : 'MP3 · WAV · OGG - processed entirely on your device.'}
         </p>
 
         {track && !isAnalyzing && (

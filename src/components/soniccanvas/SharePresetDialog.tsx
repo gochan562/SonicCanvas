@@ -80,7 +80,7 @@ export function SharePresetDialog() {
             Share preset
           </DialogTitle>
           <DialogDescription className="text-white/50">
-            Anyone who opens this URL will see SonicCanvas with your exact visual settings applied. The settings live in the URL hash — no server, no account.
+            Anyone who opens this URL will see SonicCanvas with your exact visual settings applied.
           </DialogDescription>
         </DialogHeader>
 

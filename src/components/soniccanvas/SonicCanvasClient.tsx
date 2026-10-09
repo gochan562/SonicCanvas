@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic'
  * Client-side wrapper that dynamically imports the SonicCanvas component
  * with `ssr: false`. This prevents server-side rendering of the Radix UI
  * components inside SonicCanvas, which generate IDs via useId that
- * differ between server and client — causing hydration mismatches.
+ * differ between server and client, which causes hydration mismatches.
  *
  * Since SonicCanvas is a fully client-side app (WebGL, Web Audio API,
  * browser-only APIs), there's no benefit to SSR anyway.

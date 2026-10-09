@@ -1,4 +1,4 @@
-# SonicCanvas — Customization Guide
+# SonicCanvas - Customization Guide
 
 > **Turn SonicCanvas into your creative coding laboratory.**
 >

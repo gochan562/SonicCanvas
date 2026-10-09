@@ -32,15 +32,15 @@ import { toast } from '@/hooks/use-toast'
  *
  * Layout (spec §23):
  *
- *   ┌─ Header ─────────────────────────────────────────────┐
+ *   ┌─ Header ─────────────────────────────────────────────-┐
  *   │  SonicCanvas logo                      Export button  │
  *   ├──────────────────────────────────────┬────────────────┤
- *   │                                       │                │
- *   │           Visual preview              │  Controls      │
- *   │                                       │  panel         │
- *   ├──────────────────────────────────────┴────────────────┤
- *   │  Player bar (play / seek / volume / file info)         │
- *   └────────────────────────────────────────────────────────┘
+ *   │                                      │                │
+ *   │           Visual preview             │  Controls      │
+ *   │                                      │  panel         │
+ *   ├─────────────────────────────────-────┴────────────────┤
+ *   │  Player bar (play / seek / volume / file info)        │
+ *   └───────────────────────────────────────────────────────┘
  *
  * Footer is sticky (per project UI rules) and pushed down naturally
  * on tall content via a min-h-screen flex column wrapper.
@@ -65,7 +65,7 @@ export function SonicCanvas() {
   const setSceneStore = useSonicStore((s) => s.setScene)
   const activeScene = useSonicStore((s) => s.activeScene)
 
-  // ---- engine lifecycle -------------------------------------------------
+  // ---- engine lifecycle ------------------------------------
   // Engines are created lazily so we don't run on the server.
   useEffect(() => {
     if (audioRef.current) return

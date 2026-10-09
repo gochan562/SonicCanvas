@@ -30,7 +30,7 @@ import type { ExportQuality, ExportResolution } from '@/lib/soniccanvas/export/V
  * Modal that lets the user choose resolution + quality, start a clean
  * export pass, view progress, and download the resulting WebM.
  *
- * The export runs a dedicated clean recording pass (spec §32) — it
+ * The export runs a dedicated clean recording pass (spec §32). It
  * resets playback to the start, creates a fresh audio source, starts
  * the MediaRecorder + canvas.captureStream, and stops when the audio
  * ends.

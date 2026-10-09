@@ -25,7 +25,7 @@ import { Keyboard, X } from 'lucide-react'
  */
 const SHORTCUTS: { keys: string[]; label: string; group: string }[] = [
   { keys: ['Space'], label: 'Play / Pause', group: 'Playback' },
-  { keys: ['←'], label: 'Seek −5s', group: 'Playback' },
+  { keys: ['←'], label: 'Seek -5s', group: 'Playback' },
   { keys: ['→'], label: 'Seek +5s', group: 'Playback' },
   { keys: ['↑'], label: 'Volume up', group: 'Playback' },
   { keys: ['↓'], label: 'Volume down', group: 'Playback' },
