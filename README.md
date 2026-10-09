@@ -76,24 +76,6 @@ SonicCanvas is built with:
 
 The visualization layer uses Three.js and custom GLSL shaders for GPU-based rendering.
 
-## Project Structure
-
-```text
-src/
-├── app/
-├── components/
-│   └── soniccanvas/
-├── lib/
-│   └── soniccanvas/
-│       ├── audio/
-│       ├── export/
-│       └── visuals/
-│           └── scenes/
-└── ...
-```
-
-The main systems are separated into audio analysis, visualization, scene rendering, application state, controls, and video export.
-
 ---
 
 ## Development
@@ -142,13 +124,6 @@ Audio analysis is fed into the active scene through shared state, allowing shade
 
 Video export captures the rendered canvas directly, which means the live renderer and exported video share the same visual implementation.
 
----
-
-## Design Direction
-
-SonicCanvas focuses on procedural graphics rather than pre-made visual assets.
-
-The goal is to make the relationship between sound and motion visible through simple systems: particles, geometry, light, color, noise, and shader-based effects responding to audio.
 
 ---
 
@@ -168,3 +143,5 @@ This project does not currently specify a public software license.
 
 * Please note that **generative AI tools** were used to assist in drafting and organizing some parts of the documentations in /docs . While the core data has been checked, please verify critical metrics independently before finalizing.
 * All of the comments in-code are written by me, and none of it is a starter template/boilerplate copy-pasted from others.
+
+Whatever, plz have fun and feel free to modify / contribute to SonicCanvas!
