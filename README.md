@@ -141,7 +141,7 @@ This project does not currently specify a public software license.
 
 ## Other
 
-* Please note that **generative AI tools** were used to assist in drafting and organizing some part of the documentations. While the core data has been checked, please verify critical metrics independently before finalizing.
+* Please note that **generative AI tools** were used to assist in drafting and organizing some part of the documentations (the documentations in /docs not README). While the core data has been checked, please verify critical metrics independently before finalizing.
 * All of the comments are written by me, and none of it is a starter template/boilerplate copy-pasted from others.(I just wanted absolute beginners can also understand the codes)
 * This project is made 2 months ago, before I joined Hack Club or uploaded it to GitHub, so the initial commit carries a lot of codes and files. The Hackatime record is much less than the actual development.
 
