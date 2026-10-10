@@ -1,149 +1,43 @@
 # SonicCanvas
 
-SonicCanvas is a browser-based music visualization tool that turns audio into real-time generative visuals.
+SonicCanvas turns a music file into an animated visual that reacts while the track plays. I wanted something more interesting than one waveform that changes size, so I built several different scenes: Liquid, Orbit, Tunnel, Grid, and Particle Field. You can try a built-in demo tone before loading your own music, change the visual settings, and export the result as a WebM.
 
-Load an audio file, choose a visual scene, adjust the parameters, and watch the visualization react to the music. The same rendering system is used for both the live preview and video export.
+## how it works
 
----
+The audio analyzer uses the browser's Web Audio API to read frequency and waveform data. It turns that data into values such as bass, treble, overall energy, and a beat pulse, which the visuals can react to. I also downsample the waveform and spectrum so they can be passed to the rendering side without sending the whole audio buffer into every visual.
 
-## Features
+The visuals are built with Three.js and custom scene code. Each scene has its own look and rendering logic instead of being the same effect with a different color. The visual engine updates the active scene with the latest audio features, and the scene manager handles switching and crossfading between scenes. Auto-scene mode can use the track's energy and beat pulse to decide when to switch.
 
-### Audio-reactive visualization
+## what took the most work
 
-SonicCanvas analyzes audio in real time and exposes musical information such as energy and beat activity to the visual engine.
+Beat detection was one of the harder parts. A change in volume is not always a beat, and a pulse that fires too often or feels late makes the whole visual look wrong. I had to work on making the audio features useful for animation, not just producing numbers from the analyzer.
 
-Visual parameters can respond dynamically to the audio instead of relying on pre-rendered animations.
+The Primary Color control in Particle Field was another edge case. That scene should not react to the global Primary Color setting, so the control is disabled when Particle Field is selected. I also needed to make sure that setting does not sneak into either the live render or the exported WebM.
 
----
+Exporting the animation took work too. It is one thing to make the canvas look right while the app is running; it is another to record the moving result into a video. The exporter, renderer, and current scene settings all need to stay consistent through the recording, otherwise the exported result can differ from what I was looking at.
 
-### Multiple visual scenes
+## what i'd add next
 
-The visualization engine is built around independent scenes with different rendering behavior.
+I would focus on making beat detection behave better across different kinds of music and testing WebM export more thoroughly, especially on longer tracks and different browsers. After that, I would improve the audio-to-visual mapping controls so it is easier to get a specific result without needing to add more scenes just for the sake of having more scenes.
 
-Current scenes include:
+## run locally
 
-* Particle Field
-* Orbit
-* Additional scene systems under active development
-
-Each scene has its own rendering logic and controls.
-
----
-
-### Visual controls
-
-The control panel provides adjustable parameters for the active scene, including:
-
-* Intensity
-* Motion
-* Glow
-* Particles
-* Distortion
-* Primary Color
-* Secondary Color
-* Background Color
-
-Some controls are scene-specific. For example, Primary Color is intentionally disabled for the Particle scene, where Secondary Color is used as the main visual accent.
-
----
-
-### Audio mapping
-
-SonicCanvas is designed around mapping audio properties to visual parameters. This allows movement, brightness, particle behavior, and other visual properties to change with the music.
-
----
-
-### Video export
-
-The canvas can be recorded directly from the WebGL renderer and exported as a video.
-
-The exported visualization uses the same rendering pipeline as the live preview, so scene behavior and visual settings remain consistent between preview and export.
-
----
-
-## Technology
-
-SonicCanvas is built with:
-
-* Next.js
-* React
-* TypeScript
-* Three.js
-* Tailwind CSS
-* Zustand
-* Radix UI components
-* Bun
-
-The visualization layer uses Three.js and custom GLSL shaders for GPU-based rendering.
-
----
-
-## Development
-
-### Requirements
-
-* Bun
-* A modern browser with WebGL support
-
-### Install
+You need Bun installed. From the project directory, run:
 
 ```bash
 bun install
+bun dev
 ```
 
-### Run locally
+Then open `http://localhost:3000` in your browser.
 
-```bash
-bun run dev
-```
+## built with
 
-Then open:
-
-```text
-http://localhost:3000
-```
-
-### Type checking
-
-```bash
-bunx tsc --noEmit
-```
-
----
-
-
-## Rendering Architecture
-
-SonicCanvas separates the visual system into a reusable rendering engine and individual scenes.
-
-The visual engine manages the renderer, canvas, animation loop, scene lifecycle, resizing, and shared visual state.
-
-Each scene contains its own Three.js objects, materials, shaders, uniforms, and update logic.
-
-Audio analysis is fed into the active scene through shared state, allowing shader uniforms and scene parameters to react to the music in real time.
-
-Video export captures the rendered canvas directly, which means the live renderer and exported video share the same visual implementation.
-
-
----
-
-## Status
-
-SonicCanvas is an active development project. The core visualization and export pipeline is functional, while additional scenes, controls, mappings, and rendering features continue to evolve. For further guides, please visit /docs.
-
----
+Next.js, React, TypeScript, Three.js, the Web Audio API, Zustand, and Tailwind CSS.
 
 ## License
+Currently, none.
 
-This project does not currently specify a public software license.
-
----
-
-## Other
-
-* Please note that **generative AI tools** were used to assist in drafting and organizing some part of the documentations (the documentations in /docs not README). While the core data has been checked, please verify critical metrics independently before finalizing.
-* All of the comments are written by me, and none of it is a starter template/boilerplate copy-pasted from others.(I just wanted absolute beginners can also understand the codes)
-* This project is made 2 months ago, before I joined Hack Club or uploaded it to GitHub, so the initial commit carries a lot of codes and files. The Hackatime record is much less than the actual development.
-
-
-Whatever, please have fun and feel free to modify / contribute to SonicCanvas!
+## Others
+The comments I made in-code are not AI generated. It's there because I want beginners can also understand what each section does.
+I also use `AGENTS.md` and `CLAUDE.md` to document project-specific instructions for AI coding agents. They help keep development consistent by explaining the project's structure, conventions, and important implementation details, so I don't have to re-explain everything every time I work on it. I still need to make the design decisions, check the final code, and debug things when they don't work as expected.
